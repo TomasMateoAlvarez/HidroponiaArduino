@@ -12,11 +12,11 @@
 #define RELAY_WATER 5   // Bomba de agua (riego)
 
 // Umbrales para control automático
-const float PH_MIN = 6.0;
-const float PH_MAX = 6.5;
+const float PH_MIN = 6.5;
+const float PH_MAX = 7.5;
 
-const float TDS_MIN = 1300.0;
-const float TDS_MAX = 1600.0;
+const float TDS_MIN = 700.0;
+const float TDS_MAX = 800.0;
 
 PHMeter phSensor(PH_PIN, 1.29, -5.7);
 TDSMeter tdsSensor(TDS_PIN);
@@ -43,10 +43,10 @@ void loop() {
 
   // Control automático pH
   if (ph < PH_MIN) {
-    digitalWrite(RELAY_PH, HIGH);  // Activar bomba para subir pH
+    digitalWrite(RELAY_PH, HIGH); 
     Serial.println("pH bajo: activando bomba para subir pH");
   } else if (ph > PH_MAX) {
-    digitalWrite(RELAY_PH, HIGH);  // Activar bomba para bajar pH (puede ser otra bomba, acá simplifico)
+    digitalWrite(RELAY_PH, HIGH);  
     Serial.println("pH alto: activando bomba para bajar pH");
   } else {
     digitalWrite(RELAY_PH, LOW);   // Apagar bombas de pH si está dentro del rango
@@ -58,7 +58,7 @@ void loop() {
     digitalWrite(RELAY_TDS, HIGH); // Activar bomba nutrientes
     Serial.println("TDS bajo: activando bomba nutrientes");
   } else if (tds > TDS_MAX) {
-    digitalWrite(RELAY_TDS, LOW);  // Apagar bomba si TDS está alto (o definir otra acción)
+    digitalWrite(RELAY_TDS, LOW); 
     Serial.println("TDS alto: bomba nutrientes apagada");
   } else {
     digitalWrite(RELAY_TDS, LOW);  // Apagar bomba si TDS está en rango
